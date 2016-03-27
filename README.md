@@ -17,7 +17,7 @@ Little Endian Base 128 ([LEB128](https://en.wikipedia.org/wiki/LEB128)) converte
 
 ```
                             -624485
-11111111_11110110_01111000_10011011  binary
+11111111_11110110_01111000_10011011  two's complement binary
             1011001_1110001_0011011  shrunk to a multiple of 7 bits
          01011001 11110001 10011011  Add high 1 bits on all but last group to form bytes
              0x59     0xf1     0x9b  In hexadecimal
