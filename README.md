@@ -6,7 +6,7 @@ Little Endian Base 128 ([LEB128](https://en.wikipedia.org/wiki/LEB128)) converte
 
 ```
                              624485
-                            0x98765  HEX
+                         0x00098765  HEX
 00000000_00001001_10000111_01100101  binary
             0100110_0001110_1100101  shrunk to a multiple of 7 bits
          00100110 10001110 11100101  Add high 1 bits on all but last group to form bytes
