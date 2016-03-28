@@ -4,6 +4,8 @@ Little Endian Base 128 ([LEB128](https://en.wikipedia.org/wiki/LEB128)) converte
 
 ## Overview
 
+Encoding procedure.
+
 ### Unsigned
 
 ```
