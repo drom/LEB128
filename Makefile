@@ -1,7 +1,7 @@
 SRC   = .
 BUILD = build
 
-IVERILOG = iverilog -I $(SRC)
+IVERILOG = iverilog -I $(SRC) -y $(SRC)
 VVP      = vvp -N
 
 
@@ -13,7 +13,7 @@ all:
 clean:
 	rm -rf $(BUILD) *~
 
-test: test-unpack_u32
+test: test-unpack_i32 test-unpack_u32
 
 
 #
@@ -26,6 +26,7 @@ $(BUILD):
 #
 # Test and view rules
 #
+test-unpack_i32: $(BUILD)/unpack_i32_tb.vcd
 test-unpack_u32: $(BUILD)/unpack_u32_tb.vcd
 
 $(BUILD)/%.vcd: $(BUILD)/% $(BUILD)
