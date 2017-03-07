@@ -12,6 +12,14 @@ module unpack_u32_tb ();
     $dumpfile("unpack_u32_tb.vcd");
     $dumpvars(0, unpack_u32_tb);
 
+    i0 = 0;
+    i1 = 0;
+    i2 = 0;
+    i3 = 0;
+    i4 = 0;
+    #1
+    `assert(o , 0);
+
     i0 = 8'he5;
     i1 = 8'h8e;
     i2 = 8'h26;
