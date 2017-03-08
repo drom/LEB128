@@ -1,6 +1,7 @@
 # LEB128
 
-Little Endian Base 128 ([LEB128](https://en.wikipedia.org/wiki/LEB128)) converters in Verilog.
+Little Endian Base 128 ([LEB128](https://en.wikipedia.org/wiki/LEB128))
+converters in Verilog.
 
 ## Overview
 
@@ -15,7 +16,7 @@ Encoding procedure.
             0100110_0001110_1100101  shrink to a multiple of 7 bits
          00100110 10001110 11100101  Add high 1 bits on all but last group to form bytes
              0x26     0x8E     0xE5  HEX
-0xE5 0x8E 0x26                       Output byte stream
+0xE5 0x8E 0x26 (0x00 0x00)           Output byte stream
 ```
 
 ### Signed
@@ -27,5 +28,5 @@ Encoding procedure.
             1011001_1110001_0011011  shrink to a multiple of 7 bits (1+ sign bit included)
          01011001 11110001 10011011  Add high 1 bits on all but last group to form bytes
              0x59     0xf1     0x9b  HEX
-0x9b 0xf1 0x59                       Output byte stream
+0x9b 0xf1 0x59 (0x00 0x00)           Output byte stream
 ```
