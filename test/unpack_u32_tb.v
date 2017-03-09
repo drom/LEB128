@@ -22,6 +22,15 @@ module unpack_u32_tb ();
     `assert(o  , 0);
     `assert(len, 1);
 
+    i0 = 42;
+    i1 = 0;
+    i2 = 0;
+    i3 = 0;
+    i4 = 0;
+    #1
+    `assert(o  , 42);
+    `assert(len, 1);
+
     i0 = 8'he5;
     i1 = 8'h8e;
     i2 = 8'h26;

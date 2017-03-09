@@ -5,7 +5,8 @@ module unpack_u32 (
 );
 
 // i = $.wire()
-logic [4:0] gl, dc, ho;
+logic [4:0] gl, ho;
+logic [4:1] dc;
 logic [6:0] c0, c1, c2, c3, c4;
 logic [6:0] k0, k1, k2, k3, k4;
 
@@ -23,19 +24,17 @@ always @* begin
   c3 = i3[6:0];
   c4 = i4[6:0];
   // dc = gl.expand.up()
-  dc[0] = gl[0];
-  dc[1] = gl[0] | gl[1];
-  dc[2] = gl[0] | gl[1] | gl[2];
-  dc[3] = gl[0] | gl[1] | gl[2] | gl[3];
-  dc[4] = gl[0] | gl[1] | gl[2] | gl[3] | gl[4];
+  dc[1] = gl[0];
+  dc[2] = gl[0] | gl[1];
+  dc[3] = gl[0] | gl[1] | gl[2];
+  dc[4] = gl[0] | gl[1] | gl[2] | gl[3];
   // k = c.overwrite(dc, 0)
-  k0 = dc[0] ? c0 : 7'b0;
   k1 = dc[1] ? c1 : 7'b0;
   k2 = dc[2] ? c2 : 7'b0;
   k3 = dc[3] ? c3 : 7'b0;
   k4 = dc[4] ? c4 : 7'b0;
   // o = k.glue()
-  o = {k4, k3, k2, k1, k0};
+  o = {k4, k3, k2, k1, c0};
 
   // Get high order byte
   ho[0] = !gl[0];
