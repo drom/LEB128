@@ -1,14 +1,14 @@
 module unpack_u32 (
   input [7:0] i0, i1, i2, i3, i4,
-  output logic [31:0] o,
-  output logic [ 2:0] len  // TODO make zero-based index instead of off-by-one
+  output reg [31:0] o,
+  output reg [ 2:0] len  // TODO make zero-based index instead of off-by-one
 );
 
 // i = $.wire()
-logic [4:0] gl, ho;
-logic [4:1] dc;
-logic [6:0] c0, c1, c2, c3, c4;
-logic [6:0] k0, k1, k2, k3, k4;
+reg [4:0] gl, ho;
+reg [4:1] dc;
+reg [6:0] c0, c1, c2, c3, c4;
+reg [6:0] k0, k1, k2, k3, k4;
 
 always @* begin
   // gl = i.msb() // glue bits
