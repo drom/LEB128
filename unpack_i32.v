@@ -1,13 +1,13 @@
 module unpack_i32 (
-  input [7:0] i0, i1, i2, i3, i4,
-  output logic [31:0] o,
-  output wire  [ 2:0] len
+  input        [7:0] i0, i1, i2, i3, i4,
+  output reg  [31:0] o,
+  output wire  [2:0] len
 );
 
   wire[31:0] u32_output;
 
-  logic [4:0] gl, ub, ho, sb;
-  logic [6:0] l0, l1, l2, l3, l4;
+  reg [4:0] gl, ub, ho, sb;
+  reg [6:0] l0, l1, l2, l3, l4;
 
   unpack_u32 u32(i0, i1, i2, i3, i4, u32_output, len);
 

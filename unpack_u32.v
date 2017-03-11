@@ -1,7 +1,7 @@
 module unpack_u32 (
-  input [7:0] i0, i1, i2, i3, i4,
+  input       [7:0] i0, i1, i2, i3, i4,
   output reg [31:0] o,
-  output reg [ 2:0] len  // TODO make zero-based index instead of off-by-one
+  output reg  [2:0] len  // TODO make zero-based index instead of off-by-one
 );
 
 // i = $.wire()

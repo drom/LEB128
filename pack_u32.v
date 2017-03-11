@@ -1,15 +1,15 @@
 module pack_u32 (
   input [31:0] i,
-  output logic [7:0] o0, o1, o2, o3, o4,
-  output logic [2:0] len
+  output reg [7:0] o0, o1, o2, o3, o4,
+  output reg [2:0] len
 );
 
-logic [6:0] c0, c1, c2, c3, c4;
-logic [4:0] co;
-logic [4:0] gl;
+reg [6:0] c0, c1, c2, c3, c4;
+reg [4:0] co;
+reg [4:0] gl;
 
 // i = $.wire()
-always_comb begin
+always @* begin
   // c = i.chop(7) // chunks
   {c4, c3, c2, c1, c0} = i;
   // co = c.reduce.or() // flags
