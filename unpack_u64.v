@@ -1,14 +1,14 @@
 module unpack_u64 (
-  input [7:0] i0, i1, i2, i3, i4, i5, i6, i7, i8, i9,
-  output logic [63:0] o,
-  output logic [ 3:0] len
+  input      [ 7:0] i0, i1, i2, i3, i4, i5, i6, i7, i8, i9,
+  output reg [63:0] o,
+  output reg [ 3:0] len
 );
 
 // i = $.wire()
-logic [9:0] gl, ho;
-logic [9:1] dc;
-logic [6:0] c0, c1, c2, c3, c4, c5, c6, c7, c8, c9;
-logic [6:0] k0, k1, k2, k3, k4, k5, k6, k7, k8, k9;
+reg [9:0] gl, ho;
+reg [9:1] dc;
+reg [6:0] c0, c1, c2, c3, c4, c5, c6, c7, c8, c9;
+reg [6:0] k0, k1, k2, k3, k4, k5, k6, k7, k8, k9;
 
 always @* begin
   // gl = i.msb() // glue bits

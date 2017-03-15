@@ -1,13 +1,13 @@
 module unpack_u7 (
-  input [7:0] i0,
-  output logic [6:0] o
+  input      [7:0] i0,
+  output reg [6:0] o
 );
 
 // i = $.wire()
-logic [0:0] gl;
-logic [0:0] dc;
-logic [6:0] c0;
-logic [6:0] k0;
+reg [0:0] gl;
+reg [0:0] dc;
+reg [6:0] c0;
+reg [6:0] k0;
 
 always @* begin
   // gl = i.msb() // glue bits

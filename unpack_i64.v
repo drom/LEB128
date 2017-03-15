@@ -1,13 +1,13 @@
 module unpack_i64 (
-  input [7:0] i0, i1, i2, i3, i4, i5, i6, i7, i8, i9,
-  output logic [63:0] o,
-  output wire  [ 3:0] len
+  input       [ 7:0] i0, i1, i2, i3, i4, i5, i6, i7, i8, i9,
+  output reg  [63:0] o,
+  output wire [ 3:0] len
 );
 
   wire[63:0] u64_output;
 
-  logic [9:0] gl, ub, ho, sb;
-  logic [6:0] l0, l1, l2, l3, l4, l5, l6, l7, l8, l9;
+  reg [9:0] gl, ub, ho, sb;
+  reg [6:0] l0, l1, l2, l3, l4, l5, l6, l7, l8, l9;
 
   unpack_u64 u64(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, u64_output, len);
 
@@ -62,16 +62,16 @@ module unpack_i64 (
 
     // If number is negative, extend sign to left
     if(|sb) begin
-      l0 = ub[0] ? i0[6:0] : ~0;
-      l1 = ub[1] ? i1[6:0] : ~0;
-      l2 = ub[2] ? i2[6:0] : ~0;
-      l3 = ub[3] ? i3[6:0] : ~0;
-      l4 = ub[4] ? i4[6:0] : ~0;
-      l5 = ub[5] ? i5[6:0] : ~0;
-      l6 = ub[6] ? i6[6:0] : ~0;
-      l7 = ub[7] ? i7[6:0] : ~0;
-      l8 = ub[8] ? i8[6:0] : ~0;
-      l9 = ub[9] ? i9[6:0] : ~0;
+      l0 = ub[0] ? i0[6:0] : 7'b1111111;
+      l1 = ub[1] ? i1[6:0] : 7'b1111111;
+      l2 = ub[2] ? i2[6:0] : 7'b1111111;
+      l3 = ub[3] ? i3[6:0] : 7'b1111111;
+      l4 = ub[4] ? i4[6:0] : 7'b1111111;
+      l5 = ub[5] ? i5[6:0] : 7'b1111111;
+      l6 = ub[6] ? i6[6:0] : 7'b1111111;
+      l7 = ub[7] ? i7[6:0] : 7'b1111111;
+      l8 = ub[8] ? i8[6:0] : 7'b1111111;
+      l9 = ub[9] ? i9[6:0] : 7'b1111111;
 
       o = {l9, l8, l7, l6, l5, l4, l3, l2, l1, l0};
     end
