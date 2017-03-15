@@ -1,15 +1,15 @@
 module unpack_i64 (
-  input [7:0] i0, i1, i2, i3, i4, i5, i6, i7, i8,
+  input [7:0] i0, i1, i2, i3, i4, i5, i6, i7, i8, i9,
   output logic [63:0] o,
   output wire  [ 3:0] len
 );
 
   wire[63:0] u64_output;
 
-  logic [8:0] gl, ub, ho, sb;
-  logic [6:0] l0, l1, l2, l3, l4, l5, l6, l7, l8;
+  logic [9:0] gl, ub, ho, sb;
+  logic [6:0] l0, l1, l2, l3, l4, l5, l6, l7, l8, l9;
 
-  unpack_u64 u64(i0, i1, i2, i3, i4, i5, i6, i7, i8, u64_output, len);
+  unpack_u64 u64(i0, i1, i2, i3, i4, i5, i6, i7, i8, i9, u64_output, len);
 
   always @* begin
     // Glue bits
@@ -22,6 +22,7 @@ module unpack_i64 (
     gl[6] = i6[7];
     gl[7] = i7[7];
     gl[8] = i8[7];
+    gl[9] = i9[7];
 
     // Used bytes
     ub[0] = 1;
@@ -33,6 +34,7 @@ module unpack_i64 (
     ub[6] = gl[5];
     ub[7] = gl[6];
     ub[8] = gl[7];
+    ub[9] = gl[8];
 
     // Get high order byte
     ho[0] = !gl[0] & ub[0];
@@ -44,6 +46,7 @@ module unpack_i64 (
     ho[6] = !gl[6] & ub[6];
     ho[7] = !gl[7] & ub[7];
     ho[8] = !gl[8] & ub[8];
+    ho[9] = !gl[9] & ub[9];
 
     // Get sign bit from high order byte
     sb[0] = ho[0] & i0[6];
@@ -55,6 +58,7 @@ module unpack_i64 (
     sb[6] = ho[6] & i6[6];
     sb[7] = ho[7] & i7[6];
     sb[8] = ho[8] & i8[6];
+    sb[9] = ho[9] & i9[6];
 
     // If number is negative, extend sign to left
     if(|sb) begin
@@ -67,8 +71,9 @@ module unpack_i64 (
       l6 = ub[6] ? i6[6:0] : ~0;
       l7 = ub[7] ? i7[6:0] : ~0;
       l8 = ub[8] ? i8[6:0] : ~0;
+      l9 = ub[9] ? i9[6:0] : ~0;
 
-      o = {l8, l7, l6, l5, l4, l3, l2, l1, l0};
+      o = {l9, l8, l7, l6, l5, l4, l3, l2, l1, l0};
     end
     else
       o = u64_output;

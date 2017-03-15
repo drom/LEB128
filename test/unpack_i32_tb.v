@@ -3,7 +3,7 @@
 
 module unpack_i32_tb ();
 
-  reg [7:0] i0, i1, i2, i3, i4;
+  reg  [ 7:0] i0, i1, i2, i3, i4;
   wire [31:0] o;
   wire [ 2:0] len;
 
@@ -31,8 +31,17 @@ module unpack_i32_tb ();
     `assert(o  , -624485);
     `assert(len, 3);
 
+    i0 = 8'hff;
+    i1 = 8'hff;
+    i2 = 8'hff;
+    i3 = 8'hff;
+    i4 = 8'h0f;
+    #1
+    `assert(o  , -1);
+    `assert(len, 5);
+
     $display("ok");
     $finish;
   end
 
-endmodule // unpack_u32_tb
+endmodule // unpack_i32_tb
