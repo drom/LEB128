@@ -42,11 +42,11 @@ module unpack_i32 (
 
     // If number is negative, extend sign to left
     if(|sb) begin
-      l0 = ub[0] ? i0[6:0] : ~0;
-      l1 = ub[1] ? i1[6:0] : ~0;
-      l2 = ub[2] ? i2[6:0] : ~0;
-      l3 = ub[3] ? i3[6:0] : ~0;
-      l4 = ub[4] ? i4[6:0] : ~0;
+      l0 = ub[0] ? i0[6:0] : 7'b1111111;
+      l1 = ub[1] ? i1[6:0] : 7'b1111111;
+      l2 = ub[2] ? i2[6:0] : 7'b1111111;
+      l3 = ub[3] ? i3[6:0] : 7'b1111111;
+      l4 = ub[4] ? i4[6:0] : 7'b1111111;
 
       o = {l4, l3, l2, l1, l0};
     end

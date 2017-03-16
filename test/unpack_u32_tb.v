@@ -40,6 +40,15 @@ module unpack_u32_tb ();
     `assert(o  , 624485);
     `assert(len, 3);
 
+    i0 = 8'hff;
+    i1 = 8'hff;
+    i2 = 8'hff;
+    i3 = 8'hff;
+    i4 = 8'h0f;
+    #1
+    `assert(o  , 32'hffffffff);
+    `assert(len, 5);
+
     $display("ok");
     $finish;
   end

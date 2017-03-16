@@ -13,7 +13,7 @@ all:
 clean:
 	rm -rf $(BUILD) *~
 
-test: test-unpack_i32 test-unpack_u32
+test: test/unpack_i32 test/unpack_i64 test/unpack_u32
 
 
 #
@@ -26,8 +26,9 @@ $(BUILD):
 #
 # Test and view rules
 #
-test-unpack_i32: $(BUILD)/unpack_i32_tb.vcd
-test-unpack_u32: $(BUILD)/unpack_u32_tb.vcd
+test/unpack_i32: $(BUILD)/unpack_i32_tb.vcd
+test/unpack_i64: $(BUILD)/unpack_i64_tb.vcd
+test/unpack_u32: $(BUILD)/unpack_u32_tb.vcd
 
 $(BUILD)/%.vcd: $(BUILD)/% $(BUILD)
 	(cd $(BUILD) && $(VVP) ../$<) || (rm $< && exit 1)
@@ -35,5 +36,5 @@ $(BUILD)/%.vcd: $(BUILD)/% $(BUILD)
 $(BUILD)/%_tb: $(SRC)/%.v test/assert.vh test/%_tb.v
 	$(IVERILOG) -I test test/$(@F).v $< -o $@
 
-view-%: $(BUILD)/%_tb.vcd test-%
+view/%: $(BUILD)/%_tb.vcd test/%
 	gtkwave $<
