@@ -27,6 +27,20 @@ module unpack_i64_tb ();
     `assert(o  , -1);
     `assert(len, 10);
 
+    i0 = 8'h80;
+    i1 = 8'h80;
+    i2 = 8'h80;
+    i3 = 8'h80;
+    i4 = 8'h0c;
+    i5 = 8'hbc;
+    i6 = 8'h0b;
+    i7 = 8'h00;
+    i8 = 8'h00;
+    i9 = 8'h00;
+    #1
+    `assert(o  , 32'hc0000000);
+    `assert(len, 5);
+
     $display("ok");
     $finish;
   end
