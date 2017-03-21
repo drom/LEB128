@@ -26,15 +26,15 @@ module unpack_i64 (
 
     // Used bytes
     ub[0] = 1;
-    ub[1] = gl[0];
-    ub[2] = gl[1];
-    ub[3] = gl[2];
-    ub[4] = gl[3];
-    ub[5] = gl[4];
-    ub[6] = gl[5];
-    ub[7] = gl[6];
-    ub[8] = gl[7];
-    ub[9] = gl[8];
+    ub[1] =  gl[  0];
+    ub[2] = &gl[1:0];
+    ub[3] = &gl[2:0];
+    ub[4] = &gl[3:0];
+    ub[5] = &gl[4:0];
+    ub[6] = &gl[5:0];
+    ub[7] = &gl[6:0];
+    ub[8] = &gl[7:0];
+    ub[9] = &gl[8:0];
 
     // Get high order byte
     ho[0] = !gl[0] & ub[0];

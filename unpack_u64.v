@@ -5,8 +5,7 @@ module unpack_u64 (
 );
 
 // i = $.wire()
-reg [9:0] gl, ho;
-reg [9:1] dc;
+reg [9:0] gl, ub, ho;
 reg [6:0] c0, c1, c2, c3, c4, c5, c6, c7, c8, c9;
 reg [6:0] k0, k1, k2, k3, k4, k5, k6, k7, k8, k9;
 
@@ -33,40 +32,43 @@ always @* begin
   c7 = i7[6:0];
   c8 = i8[6:0];
   c9 = i9[6:0];
-  // dc = gl.expand.up()
-  dc[1] = gl[0];
-  dc[2] = gl[0] | gl[1];
-  dc[3] = gl[0] | gl[1] | gl[2];
-  dc[4] = gl[0] | gl[1] | gl[2] | gl[3];
-  dc[5] = gl[0] | gl[1] | gl[2] | gl[3] | gl[4];
-  dc[6] = gl[0] | gl[1] | gl[2] | gl[3] | gl[4] | gl[5];
-  dc[7] = gl[0] | gl[1] | gl[2] | gl[3] | gl[4] | gl[5] | gl[6];
-  dc[8] = gl[0] | gl[1] | gl[2] | gl[3] | gl[4] | gl[5] | gl[6] | gl[7];
-  dc[9] = gl[0] | gl[1] | gl[2] | gl[3] | gl[4] | gl[5] | gl[6] | gl[7] | gl[8];
+
+  // Used bytes
+  ub[0] = 1;
+  ub[1] =  gl[  0];
+  ub[2] = &gl[1:0];
+  ub[3] = &gl[2:0];
+  ub[4] = &gl[3:0];
+  ub[5] = &gl[4:0];
+  ub[6] = &gl[5:0];
+  ub[7] = &gl[6:0];
+  ub[8] = &gl[7:0];
+  ub[9] = &gl[8:0];
+
   // k = c.overwrite(dc, 0)
-  k1 = dc[1] ? c1 : 7'b0;
-  k2 = dc[2] ? c2 : 7'b0;
-  k3 = dc[3] ? c3 : 7'b0;
-  k4 = dc[4] ? c4 : 7'b0;
-  k5 = dc[5] ? c5 : 7'b0;
-  k6 = dc[6] ? c6 : 7'b0;
-  k7 = dc[7] ? c7 : 7'b0;
-  k8 = dc[8] ? c8 : 7'b0;
-  k9 = dc[9] ? c9 : 7'b0;
+  k1 = ub[1] ? c1 : 7'b0;
+  k2 = ub[2] ? c2 : 7'b0;
+  k3 = ub[3] ? c3 : 7'b0;
+  k4 = ub[4] ? c4 : 7'b0;
+  k5 = ub[5] ? c5 : 7'b0;
+  k6 = ub[6] ? c6 : 7'b0;
+  k7 = ub[7] ? c7 : 7'b0;
+  k8 = ub[8] ? c8 : 7'b0;
+  k9 = ub[9] ? c9 : 7'b0;
   // o = k.glue()
   o = {k9, k8, k7, k6, k5, k4, k3, k2, k1, c0};
 
   // Get high order byte
-  ho[0] = !gl[0];
-  ho[1] = !gl[1] & gl[0];
-  ho[2] = !gl[2] & gl[1];
-  ho[3] = !gl[3] & gl[2];
-  ho[4] = !gl[4] & gl[3];
-  ho[5] = !gl[5] & gl[4];
-  ho[6] = !gl[6] & gl[5];
-  ho[7] = !gl[7] & gl[6];
-  ho[8] = !gl[8] & gl[7];
-  ho[9] = !gl[9] & gl[8];
+  ho[0] = !ub[1] & ub[0];
+  ho[1] = !ub[2] & ub[1];
+  ho[2] = !ub[3] & ub[2];
+  ho[3] = !ub[4] & ub[3];
+  ho[4] = !ub[5] & ub[4];
+  ho[5] = !ub[6] & ub[5];
+  ho[6] = !ub[7] & ub[6];
+  ho[7] = !ub[8] & ub[7];
+  ho[8] = !ub[9] & ub[8];
+  ho[9] =          ub[9];
 
   len[0] = ho[0] |         ho[2] |         ho[4]         | ho[6]         | ho[8];
   len[1] =         ho[1] | ho[2]                 | ho[5] | ho[6]                 | ho[9];
