@@ -13,6 +13,11 @@ module unpack_i64_tb ();
     $dumpfile("unpack_i64_tb.vcd");
     $dumpvars(0, unpack_i64_tb);
 
+    i0 = 8'h01;
+    #1
+    `assert(o  , 1);
+    `assert(len, 1);
+
     i0 = 8'hff;
     i1 = 8'hff;
     i2 = 8'hff;

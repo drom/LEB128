@@ -5,8 +5,7 @@ module unpack_u64 (
 );
 
 // i = $.wire()
-reg [9:0] gl, ho;
-reg [9:1] ub;
+reg [9:0] gl, ub, ho;
 reg [6:0] c0, c1, c2, c3, c4, c5, c6, c7, c8, c9;
 reg [6:0] k0, k1, k2, k3, k4, k5, k6, k7, k8, k9;
 
@@ -35,6 +34,7 @@ always @* begin
   c9 = i9[6:0];
 
   // Used bytes
+  ub[0] = 1;
   ub[1] =  gl[  0];
   ub[2] = &gl[1:0];
   ub[3] = &gl[2:0];
@@ -59,16 +59,16 @@ always @* begin
   o = {k9, k8, k7, k6, k5, k4, k3, k2, k1, c0};
 
   // Get high order byte
-  ho[0] = !gl[0];
-  ho[1] = !gl[1] & ub[0];
-  ho[2] = !gl[2] & ub[1];
-  ho[3] = !gl[3] & ub[2];
-  ho[4] = !gl[4] & ub[3];
-  ho[5] = !gl[5] & ub[4];
-  ho[6] = !gl[6] & ub[5];
-  ho[7] = !gl[7] & ub[6];
-  ho[8] = !gl[8] & ub[7];
-  ho[9] = !gl[9] & ub[8];
+  ho[0] = !ub[1] & ub[0];
+  ho[1] = !ub[2] & ub[1];
+  ho[2] = !ub[3] & ub[2];
+  ho[3] = !ub[4] & ub[3];
+  ho[4] = !ub[5] & ub[4];
+  ho[5] = !ub[6] & ub[5];
+  ho[6] = !ub[7] & ub[6];
+  ho[7] = !ub[8] & ub[7];
+  ho[8] = !ub[9] & ub[8];
+  ho[9] =          ub[9];
 
   len[0] = ho[0] |         ho[2] |         ho[4]         | ho[6]         | ho[8];
   len[1] =         ho[1] | ho[2]                 | ho[5] | ho[6]                 | ho[9];
