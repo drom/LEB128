@@ -32,6 +32,31 @@ module unpack_i64_tb ();
     `assert(out, 32'hc0000000);
     `assert(len, 5);
 
+    in = 80'h80808080800c00808080;
+    #1
+    `assert(out, 64'h6000000000);
+    `assert(len, 6);
+
+    in = 80'h8080808080800c008080;
+    #1
+    `assert(out, 64'h300000000000);
+    `assert(len, 7);
+
+    in = 80'h808080808080800c0080;
+    #1
+    `assert(out, 64'h18000000000000);
+    `assert(len, 8);
+
+    in = 80'h80808080808080800c00;
+    #1
+    `assert(out, 64'h0c00000000000000);
+    `assert(len, 9);
+
+    in = 80'h8080808080808080c001;
+    #1
+    `assert(out, 64'hc000000000000000);
+    `assert(len, 10);
+
     $display("ok");
     $finish;
   end
