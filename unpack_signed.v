@@ -2,9 +2,9 @@ module unpack_signed #(
   parameter N = 64
 )
 (
-  input       [         0:M-1] in,
-  output reg  [       N-1:  0] out,
-  output wire [$clog2(MB):  0] len
+  input       [           0:M-1] in,
+  output reg  [         N-1:  0] out,
+  output wire [$clog2(MB)-1:  0] len
 );
 
   localparam MB = N/7+1;

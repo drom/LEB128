@@ -2,9 +2,9 @@ module unpack_unsigned #(
   parameter N = 64
 )
 (
-  input      [         0:M-1] in,
-  output reg [       N-1:  0] out,
-  output reg [$clog2(MB):  0] len
+  input      [           0:M-1] in,
+  output reg [         N-1:  0] out,
+  output reg [$clog2(MB)-1:  0] len
 );
 
   localparam MB = N/7+1;
@@ -37,10 +37,11 @@ module unpack_unsigned #(
         out[i*7 +: 7] = 7'b0;
 
     // Positional to binary
-    len[0] = |(ho & 16'b0101010101010101);
-    len[1] = |(ho & 16'b0110011001100110);
-    len[2] = |(ho & 16'b0111100001111000);
-    len[3] = |(ho & 16'b0111111110000000);
+                len[0] = |(ho & 32'b01010101010101010101010101010101);
+    if(N >   7) len[1] = |(ho & 32'b01100110011001100110011001100110);
+    if(N >  21) len[2] = |(ho & 32'b01111000011110000111100001111000);
+    if(N >  49) len[3] = |(ho & 32'b01111111100000000111111110000000);
+    if(N > 105) len[4] = |(ho & 32'b01111111111111111000000000000000);
   end
 
 endmodule
