@@ -33,7 +33,7 @@ test/unpack_u32: $(BUILD)/unpack_u32_tb.vcd
 $(BUILD)/%.vcd: $(BUILD)/% $(BUILD)
 	(cd $(BUILD) && $(VVP) ../$<) || (rm $< && exit 1)
 
-$(BUILD)/%_tb: $(SRC)/%.v test/assert.vh test/%_tb.v
+$(BUILD)/%_tb: $(SRC)/unpack_signed.v $(SRC)/unpack_unsigned.v test/assert.vh test/%_tb.v
 	$(IVERILOG) -I test test/$(@F).v $< -o $@
 
 view/%: $(BUILD)/%_tb.vcd test/%

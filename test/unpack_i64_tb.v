@@ -7,7 +7,7 @@ module unpack_i64_tb ();
   wire [63:0] out;
   wire [ 3:0] len;
 
-  unpack_i64 DUT(in, out, len);
+  unpack_signed #(.N(64)) DUT(in, out, len);
 
   initial begin
     $dumpfile("unpack_i64_tb.vcd");
